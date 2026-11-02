@@ -1,5 +1,14 @@
-// Functions for the Skill Swap project.
+// Filter the skills so only the selected category is shown.
+function filterSkillsByCategory(skills, category) {
+  if (category === 'All') {
+    return skills;
+  }
 
-// The functions will be added as we follow the test-driven development steps.
+  return skills.filter(function(skill) {
+    return skill.category === category;
+  });
+}
 
-module.exports = { };
+module.exports = {
+  filterSkillsByCategory
+};
