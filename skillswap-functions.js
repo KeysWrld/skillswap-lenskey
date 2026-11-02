@@ -9,6 +9,12 @@ function filterSkillsByCategory(skills, category) {
   });
 }
 
+// Calculate the total price using an hourly rate and number of hours.
+function calculateTotalCosts(hourlyRate, hours) {
+  return Number(hourlyRate) * Number(hours);
+}
+
 module.exports = {
-  filterSkillsByCategory
+  filterSkillsByCategory,
+  calculateTotalCosts
 };
