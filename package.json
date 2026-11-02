@@ -1,12 +1,12 @@
 {
   "name": "skillswap-lenskey",
   "version": "1.0.0",
-  "description": "Skill Swap frontend with API integration",
+  "description": "Skill Swap project with Jest unit tests",
   "main": "script.js",
   "scripts": {
-    "test": "node --test"
+    "test": "jest"
   },
-  "keywords": ["skillswap", "education", "api"],
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "jest": "^30.0.5"
+  }
 }
