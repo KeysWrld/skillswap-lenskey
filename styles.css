@@ -165,3 +165,25 @@ button:hover {
     width: 100%;
   }
 }
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.form-section .result {
+  margin-top: 14px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.form-section .skills-grid {
+  margin-top: 18px;
+}
+
+@media (max-width: 600px) {
+  .filter-buttons {
+    flex-direction: column;
+  }
+}
