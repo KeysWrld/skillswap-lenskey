@@ -26,6 +26,7 @@ describe('filterSkillsByCategory', () => {
   });
 });
 
+
 const {
   calculateTotalCosts
 } = require('../skillswap-functions');
@@ -78,3 +79,4 @@ describe('matchSkillsToUser', () => {
     ]);
   });
 });
+
