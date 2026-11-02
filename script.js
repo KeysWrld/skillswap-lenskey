@@ -1,21 +1,16 @@
 // Keep the skills received from the API in this array.
 let allSkills = [];
 
-// Get an element from the page.
 const skillsList = document.getElementById('skills-list');
 const statusMessage = document.getElementById('status-message');
-const categoryFilter = document.getElementById('category-filter');
 const skillForm = document.getElementById('skill-form');
 
-// Use the shared helper functions from skills-utils.js.
-const filterSkillsByCategory = window.SkillUtils.filterSkillsByCategory;
-
-// Display skills on the page.
-function displaySkills(skills) {
-  skillsList.innerHTML = '';
+// Display a group of skills on the page.
+function displaySkills(skills, target) {
+  target.innerHTML = '';
 
   if (!skills || skills.length === 0) {
-    skillsList.innerHTML = '<p>No skills found. Try another category or add a skill.</p>';
+    target.textContent = 'No matching skills found.';
     return;
   }
 
@@ -42,65 +37,53 @@ function displaySkills(skills) {
     card.appendChild(category);
     card.appendChild(description);
     card.appendChild(price);
-    skillsList.appendChild(card);
+    target.appendChild(card);
   });
 }
 
-// Load the skills from the backend API.
+// Load skills from the backend API.
 async function loadSkills() {
   statusMessage.textContent = 'Loading skills...';
 
   try {
     allSkills = await window.apiService.fetchSkills();
-    updateCategoryOptions(allSkills);
-    displaySkills(allSkills);
+    displaySkills(allSkills, skillsList);
     statusMessage.textContent = 'Skills loaded successfully.';
   } catch (error) {
     statusMessage.textContent = error.message;
-    skillsList.innerHTML = '<p>Start the backend server to view available skills.</p>';
+    skillsList.textContent = 'Start the backend server to view available skills.';
   }
 }
 
-// Add categories to the filter dropdown.
-function updateCategoryOptions(skills) {
-  const currentValue = categoryFilter.value;
-  const categories = [];
-
-  skills.forEach(function(skill) {
-    const category = skill.category || 'Other';
-    if (!categories.includes(category)) {
-      categories.push(category);
-    }
+// Filter buttons call the tested filter function.
+document.querySelectorAll('.filter-button').forEach(function(button) {
+  button.addEventListener('click', function() {
+    const category = button.dataset.category;
+    const filteredSkills = window.SkillSwapFunctions.filterSkillsByCategory(allSkills, category);
+    displaySkills(filteredSkills, skillsList);
   });
-
-  categoryFilter.innerHTML = '<option value="All">All categories</option>';
-
-  categories.sort().forEach(function(category) {
-    const option = document.createElement('option');
-    option.value = category;
-    option.textContent = category;
-    categoryFilter.appendChild(option);
-  });
-
-  if (categories.includes(currentValue)) {
-    categoryFilter.value = currentValue;
-  }
-}
-
-// Filter skills when the dropdown changes.
-categoryFilter.addEventListener('change', function() {
-  const selectedCategory = categoryFilter.value;
-  const filteredSkills = filterSkillsByCategory(allSkills, selectedCategory);
-  displaySkills(filteredSkills);
 });
 
-// Show all skills when the button is clicked.
-document.getElementById('show-all-button').addEventListener('click', function() {
-  categoryFilter.value = 'All';
-  displaySkills(allSkills);
+// Calculate a total cost from the hourly rate and number of hours.
+document.getElementById('calculate-button').addEventListener('click', function() {
+  const rate = Number(document.getElementById('hourly-rate').value);
+  const hours = Number(document.getElementById('hours').value);
+  const total = window.SkillSwapFunctions.calculateTotalCosts(rate, hours);
+  document.getElementById('cost-result').textContent = 'Total cost: $' + total.toFixed(2);
 });
 
-// Submit the new skill form to the API.
+// Match skills using the user's category preference and maximum price.
+document.getElementById('find-match-button').addEventListener('click', function() {
+  const userNeeds = {
+    category: document.getElementById('match-category').value,
+    maxPrice: Number(document.getElementById('max-price').value)
+  };
+
+  const matches = window.SkillSwapFunctions.matchSkillsToUser(userNeeds, allSkills);
+  displaySkills(matches, document.getElementById('match-results'));
+});
+
+// Submit a new skill to the backend API.
 skillForm.addEventListener('submit', async function(event) {
   event.preventDefault();
 
@@ -122,5 +105,4 @@ skillForm.addEventListener('submit', async function(event) {
   }
 });
 
-// Load skills after the page is ready.
 loadSkills();
