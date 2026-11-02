@@ -5,7 +5,7 @@ const {
   filterSkillsByCategory,
   calculateTotalCosts,
   matchSkillsToUser
-} = require('../script.js');
+} = require('../skills-utils.js');
 
 const sampleSkills = [
   { title: 'Web Design', category: 'Technology', price: 25 },
