@@ -1,0 +1,12 @@
+{
+  "name": "skillswap-lenskey",
+  "version": "1.0.0",
+  "description": "Skill Swap frontend with API integration",
+  "main": "script.js",
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": ["skillswap", "education", "api"],
+  "author": "",
+  "license": "ISC"
+}

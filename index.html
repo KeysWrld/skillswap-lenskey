@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skill Swap</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>Skill Swap</h1>
+      <p>Share what you know. Learn something new.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="intro">
+      <h2>Explore Skills</h2>
+      <p>Find a skill to learn or share one of your own with the community.</p>
+    </section>
+
+    <section class="toolbar" aria-label="Skill filters">
+      <label for="category-filter">Filter by category</label>
+      <select id="category-filter">
+        <option value="All">All categories</option>
+      </select>
+      <button id="show-all-button" type="button" class="secondary-button">Show all</button>
+    </section>
+
+    <p id="status-message" class="status" role="status">Loading skills...</p>
+    <section id="skills-list" class="skills-grid" aria-label="Available skills"></section>
+
+    <section class="form-section">
+      <h2>Offer a Skill</h2>
+      <p>Fill out the form to add a skill to the community.</p>
+      <form id="skill-form">
+        <div class="form-grid">
+          <label for="skill-title">Skill title
+            <input id="skill-title" name="title" type="text" required maxlength="100" placeholder="Example: Guitar lessons">
+          </label>
+          <label for="skill-category">Category
+            <input id="skill-category" name="category" type="text" required maxlength="60" placeholder="Example: Music">
+          </label>
+          <label for="skill-price">Price
+            <input id="skill-price" name="price" type="number" min="0" step="0.01" required placeholder="Example: 20">
+          </label>
+          <label for="skill-description">Description
+            <textarea id="skill-description" name="description" rows="4" required maxlength="500" placeholder="Describe the skill you are offering"></textarea>
+          </label>
+        </div>
+        <button type="submit">Add Skill</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Skill Swap — Learn from each other.</p>
+  </footer>
+
+  <script src="skills-utils.js"></script>
+  <script src="api-service.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
