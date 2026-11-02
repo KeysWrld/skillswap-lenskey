@@ -21,15 +21,52 @@
     </section>
 
     <section class="toolbar" aria-label="Skill filters">
-      <label for="category-filter">Filter by category</label>
-      <select id="category-filter">
-        <option value="All">All categories</option>
-      </select>
-      <button id="show-all-button" type="button" class="secondary-button">Show all</button>
+      <h2>Filter Skills</h2>
+      <div class="filter-buttons">
+        <button type="button" class="filter-button" data-category="All">All</button>
+        <button type="button" class="filter-button" data-category="Programming">Programming</button>
+        <button type="button" class="filter-button" data-category="Music">Music</button>
+        <button type="button" class="filter-button" data-category="Career">Career</button>
+      </div>
     </section>
 
     <p id="status-message" class="status" role="status">Loading skills...</p>
     <section id="skills-list" class="skills-grid" aria-label="Available skills"></section>
+
+    <section class="form-section">
+      <h2>Calculate Skill Cost</h2>
+      <p>Estimate the total price of a session.</p>
+      <div class="form-grid">
+        <label for="hourly-rate">Hourly rate ($)
+          <input id="hourly-rate" type="number" min="0" step="0.01" value="20">
+        </label>
+        <label for="hours">Number of hours
+          <input id="hours" type="number" min="0" step="0.25" value="2">
+        </label>
+      </div>
+      <button id="calculate-button" type="button">Calculate Cost</button>
+      <p id="cost-result" class="result" aria-live="polite"></p>
+    </section>
+
+    <section class="form-section">
+      <h2>Find My Match</h2>
+      <p>Find skills that fit your category and budget.</p>
+      <div class="form-grid">
+        <label for="match-category">Category preference
+          <select id="match-category">
+            <option value="Programming">Programming</option>
+            <option value="Music">Music</option>
+            <option value="Career">Career</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <label for="max-price">Maximum price ($)
+          <input id="max-price" type="number" min="0" step="0.01" value="25">
+        </label>
+      </div>
+      <button id="find-match-button" type="button">Find My Match</button>
+      <div id="match-results" class="skills-grid" aria-live="polite"></div>
+    </section>
 
     <section class="form-section">
       <h2>Offer a Skill</h2>
@@ -58,7 +95,7 @@
     <p>Skill Swap — Learn from each other.</p>
   </footer>
 
-  <script src="skills-utils.js"></script>
+  <script src="skillswap-functions.js"></script>
   <script src="api-service.js"></script>
   <script src="script.js"></script>
 </body>
